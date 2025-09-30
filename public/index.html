@@ -1,43 +1,1204 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+
+<head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <title>MY Shop</title>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <style>
+        body {
+            background: #1a1a2e !important;
+            /* Super dark body background */
+            color: #e0e0e0 !important;
+            /* Slightly dimmed light text for super dark feel */
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Navbar Styling - Super dark, matching card */
+        .navbar {
+            background: #1f1f2f !important;
+        }
+
+        .navbar-brand {
+            color: #e0e0e0 !important;
+        }
+
+        .navbar-toggler {
+            background: #1f1f2f !important;
+            border-color: #2c2c3e !important;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+
+        .navbar .nav-link {
+            color: #a0a0a0 !important;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active {
+            background: linear-gradient(90deg, #591e98, #2575fc);
+            color: #e0e0e0 !important;
+        }
+
+        #navbarNav {
+            margin-left: 30%;
+        }
+
+
+        /* Category card */
+        .category-card {
+            background: #2c2c3e;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: 0.3s;
+            color: #f1f1f1;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .category-card img {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .category-card .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .category-card .card-text {
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        /* Custom buttons */
+        .btn-add {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-add:hover {
+            background: linear-gradient(135deg, #5a0fb5, #1d63e2);
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-edit:hover {
+            background: linear-gradient(135deg, #e68900, #e64a19);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #e53935, #b71c1c);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #d32f2f, #9a0007);
+        }
+
+        .bg-red-700 {
+            background-color: #343a40 !important;
+            color: #fff
+        }
+
+        .text-gray-800 {
+            color: #cfe2ff;
+        }
+
+
+
+        .main-card {
+            background: #2c2c3e;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-card {
+            background: #3a3a4f;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            color: #f1f1f1;
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .product-card img {
+            height: 120px;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .badge-live {
+            background-color: #28a745;
+        }
+
+        .badge-offline {
+            background-color: #dc3545;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-add:hover {
+            background: linear-gradient(135deg, #5a0fb5, #1d63e2);
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-edit:hover {
+            background: linear-gradient(135deg, #e68900, #e64a19);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #e53935, #b71c1c);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #d32f2f, #9a0007);
+        }
+
+        /* Dark theme for forms */
+        .form-control,
+        .form-control:focus,
+        .form-control:active {
+            background-color: #343a52 !important;
+            border-color: #444 !important;
+            color: #f1f1f1 !important;
+            box-shadow: none;
+        }
+
+        .form-control:focus {
+            border-color: #6a11cb !important;
+            box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25) !important;
+        }
+
+        .form-control::placeholder {
+            color: #bbb !important;
+        }
+
+        .form-label {
+            color: #f1f1f1;
+            font-weight: 500;
+        }
+
+        /* Category form card */
+        .category-form-card {
+            background: #2c2c3e;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            color: #f1f1f1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .category-form-card .card-header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            border: none;
+            font-weight: bold;
+        }
+
+        .category-form-card .card-body {
+            padding: 2rem;
+        }
+
+        /* Custom buttons */
+        .btn-add {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 30px;
+            padding: 0.5rem 1.5rem;
+        }
+
+        .btn-add:hover {
+            background: linear-gradient(135deg, #5a0fb5, #1d63e2);
+            color: #fff;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 30px;
+            padding: 0.5rem 1.5rem;
+        }
+
+        .btn-edit:hover {
+            background: linear-gradient(135deg, #e68900, #e64a19);
+            color: #fff;
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #e53935, #b71c1c);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 30px;
+            padding: 0.5rem 1.5rem;
+        }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #d32f2f, #9a0007);
+            color: #fff;
+        }
+
+        /* Footer styling */
+        .footer {
+            background: #2c2c3e;
+            color: #bbb;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #444;
+        }
+
+        /* Input icons */
+        .input-group-text {
+            background-color: #343a52;
+            border-color: #444;
+            color: #f1f1f1;
+        }
+
+        .card {
+            background: #2c2c3e;
+            color: #f1f1f1;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            color: #fff !important;
+            font-weight: bold;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        /* Form Controls */
+        .form-control,
+        .form-select,
+        textarea {
+            background: #1e1e2f;
+            color: #f1f1f1;
+            border: 1px solid #444;
+        }
+
+        .form-control:focus,
+        .form-select:focus,
+        textarea:focus {
+            background: #1e1e2f;
+            color: #fff;
+            border: 1px solid #6a11cb;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.7);
+        }
+
+        label {
+            color: #ddd;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            padding: 8px 18px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a0fb5, #1d63e2);
+        }
+
+        .btn-light {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            padding: 8px 18px;
+        }
+
+        .btn-light:hover {
+            background: #666;
+            color: #fff;
+        }
+
+        .card-custom {
+            border-radius: 20px;
+            border: none;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: #2c2c3e;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-profit,
+        .card-sales,
+        .card-revenue {
+            background: linear-gradient(135deg, #231f1b, #283a40);
+        }
+
+        /* Slider */
+        .carousel-inner img {
+            border-radius: 20px;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        #dash {
+            margin-top: 8%;
+            text-align: center;
+            color: #d9dde6;
+        }
+
+        #slider {
+            margin-top: 15%;
+        }
+
+        * Card Styling */ .card {
+            background: #2c2c3e;
+            color: #f1f1f1;
+            border: none;
+        }
+
+        .card-header {
+            background: #3a3a50;
+            color: #fff;
+        }
+
+        /* Form Inputs */
+        .form-control,
+        .form-select,
+        .form-check-input {
+            background-color: #1e1e2f;
+            color: #f1f1f1;
+            border: 1px solid #444;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background-color: #1e1e2f;
+            color: #fff;
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-light {
+            background-color: #444;
+            color: #fff;
+        }
+
+        .btn-light:hover {
+            background-color: #555;
+        }
+
+        /* Image Border */
+        img {
+            border: 1px solid #444;
+            border-radius: 5px;
+        }
+
+        .card {
+            background: #2c2c3e;
+            color: #f1f1f1;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            color: #fff !important;
+            font-weight: bold;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        /* Form Dark Inputs */
+        .form-control,
+        textarea {
+            background: #1e1e2f;
+            color: #f1f1f1;
+            border: 1px solid #444;
+        }
+
+        .form-control:focus,
+        textarea:focus {
+            background: #1e1e2f;
+            color: #fff;
+            border: 1px solid #6a11cb;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.7);
+        }
+
+        label {
+            color: #ddd;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            padding: 8px 18px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a0fb5, #1d63e2);
+        }
+
+        .btn-dark {
+            background: #444;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            padding: 8px 18px;
+        }
+
+        .btn-dark:hover {
+            background: #666;
+        }
+
+        /* Existing Photo */
+        .img-fluid {
+            border-radius: 10px;
+            border: 2px solid #444;
+        }
+
+        .login-card {
+            background: #2c2c3e;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            transition: 0.3s;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .login-card h3 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .form-control {
+            background: #1e1e2f;
+            border: none;
+            color: #f1f1f1;
+        }
+
+        .form-control:focus {
+            background: #1e1e2f;
+            color: #f1f1f1;
+            border: 1px solid #2575fc;
+            box-shadow: none;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            width: 100%;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #5a0fb5, #1d63e2);
+        }
+
+        .forgot-pass {
+            color: #2575fc;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-pass:hover {
+            text-decoration: underline;
+        }
+
+        .btn-add,
+        .btn-view {
+            background: linear-gradient(135deg, #6a11cb, #2575fc) !important;
+            border: none;
+            color: #e0e0e0 !important;
+            /* Dimmed white */
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-add:hover,
+        .btn-view:hover {
+            background: linear-gradient(135deg, #5a0fb5, #1d63e2);
+            color: #e0e0e0 !important;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            border: none;
+            color: #e0e0e0 !important;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-edit:hover {
+            background: linear-gradient(135deg, #e68900, #e64a19);
+            color: #e0e0e0 !important;
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #e53935, #b71c1c);
+            border: none;
+            color: #e0e0e0 !important;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #d32f2f, #9a0007);
+            color: #e0e0e0 !important;
+        }
+
+        /* Card styling - Super dark base (#1f1f2f variant of #2c2c3e) */
+        .card {
+            background: #1f1f2f !important;
+            /* Super dark card color */
+            color: #e0e0e0 !important;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            /* Deeper shadow */
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+            color: #e0e0e0 !important;
+            /* Dimmed white */
+            border: none;
+            font-weight: bold;
+        }
+
+        .card-header .text-primary,
+        .card-header h5 {
+            color: #e0e0e0 !important;
+        }
+
+        .card-body {
+            background: #1f1f2f !important;
+            /* Super dark matching card */
+        }
+
+        /* Custom table styling - Super dark, fully matched to card (#1f1f2f) */
+        .table-custom {
+            background-color: #1f1f2f !important;
+            /* Super dark card color */
+            color: #e0e0e0 !important;
+            /* Dimmed light text */
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .table-custom thead {
+            background: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+            color: #e0e0e0 !important;
+        }
+
+        .table-custom thead th {
+            background: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+            color: #e0e0e0 !important;
+            border: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+        }
+
+        .table-custom tbody tr {
+            background-color: #1f1f2f !important;
+            /* Super dark rows */
+            border-bottom: 1px solid #2c2c3e;
+            /* Slightly lighter divider for subtle contrast */
+            transition: 0.3s;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: #2c2c3e !important;
+            /* Darker hover (matches original card) */
+        }
+
+        .table-custom td {
+            background-color: #1f1f2f !important;
+            /* Super dark cells */
+            border: none;
+            vertical-align: middle;
+            color: #e0e0e0 !important;
+            font-size: 0.95rem;
+        }
+
+        .table-custom tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Override Bootstrap defaults aggressively for super dark */
+        .table {
+            --bs-table-bg: #1f1f2f !important;
+            --bs-table-color: #e0e0e0 !important;
+            --bs-table-border-color: #2c2c3e !important;
+            --bs-table-hover-bg: #2c2c3e !important;
+            --bs-table-striped-bg: #1f1f2f !important;
+            /* No stripes, keep uniform dark */
+        }
+
+        .table thead th {
+            --bs-table-bg: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+            color: #e0e0e0 !important;
+        }
+
+        /* Responsive table wrapper - Seamless super dark */
+        .table-responsive {
+            border-radius: 0;
+            background: #1f1f2f !important;
+        }
+
+        /* Badge Styling - Adjusted for super dark theme */
+        .badge {
+            font-weight: 500;
+            color: #e0e0e0 !important;
+            padding: 0.5em 0.75em;
+        }
+
+        .badge.bg-danger {
+            background-color: #dc3545 !important;
+        }
+
+        .badge.bg-success {
+            background-color: #28a745 !important;
+        }
+
+        /* Footer styling - Super dark, matching card */
+        .footer {
+            background: #1f1f2f !important;
+            /* Super dark card color */
+            color: #a0a0a0 !important;
+            /* Dimmed gray text */
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #2c2c3e;
+        }
+
+        .footer p {
+            color: #a0a0a0 !important;
+        }
+
+        /* Aggressive override to remove any white backgrounds globally */
+        *,
+        *::before,
+        *::after {
+            background-color: transparent !important;
+            color: inherit !important;
+            /* Inherit dimmed colors */
+        }
+
+        /* Force super dark on all potential light elements */
+        .container-fluid,
+        .row,
+        .col-12 {
+            background: #1a1a2e !important;
+            /* Super dark body match */
+        }
+
+        /* Icons and shadows for super dark immersion */
+        .bi {
+            color: #e0e0e0 !important;
+        }
+
+        .shadow {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7) !important;
+            /* Deeper shadows */
+        }
+
+        /* Category card (unused but kept for consistency) - Super dark */
+        .category-card {
+            background: #1f1f2f !important;
+            /* Super dark card variant */
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            /* Deeper shadow for dark */
+            transition: 0.3s;
+            color: #e0e0e0;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+        }
+
+        .category-card img {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .category-card .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #e0e0e0;
+            /* Dimmed */
+        }
+
+        .category-card .card-text {
+            font-size: 0.95rem;
+            color: #a0a0a0;
+            /* Dimmed gray */
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #2c2c3e !important;
+            /* Match card */
+            color: #e0e0e0;
+        }
+
+        /* Custom buttons - Consistent with super dark theme */
+        .btn-add,
+        .btn-view {
+            background: linear-gradient(135deg, #6a11cb, #2575fc) !important;
+            border: none;
+            color: #e0e0e0 !important;
+            /* Dimmed white */
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-add:hover,
+        .btn-view:hover {
+            background: linear-gradient(135deg, #5a0fb5, #1d63e2);
+            color: #e0e0e0 !important;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            border: none;
+            color: #e0e0e0 !important;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-edit:hover {
+            background: linear-gradient(135deg, #e68900, #e64a19);
+            color: #e0e0e0 !important;
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #e53935, #b71c1c);
+            border: none;
+            color: #e0e0e0 !important;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #d32f2f, #9a0007);
+            color: #e0e0e0 !important;
+        }
+
+        /* Card styling - Super dark base (#1f1f2f variant of #2c2c3e) */
+        .card {
+            background: #1f1f2f !important;
+            /* Super dark card color */
+            color: #e0e0e0 !important;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            /* Deeper shadow */
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+            color: #e0e0e0 !important;
+            /* Dimmed white */
+            border: none;
+            font-weight: bold;
+        }
+
+        .card-header .text-primary,
+        .card-header h5 {
+            color: #e0e0e0 !important;
+        }
+
+        .card-body {
+            background: #1f1f2f !important;
+            /* Super dark matching card */
+        }
+
+        /* Custom table styling - Super dark, fully matched to card (#1f1f2f) */
+        .table-custom {
+            background-color: #1f1f2f !important;
+            /* Super dark card color */
+            color: #e0e0e0 !important;
+            /* Dimmed light text */
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .table-custom thead {
+            background: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+            color: #e0e0e0 !important;
+        }
+
+        .table-custom thead th {
+            background: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+            color: #e0e0e0 !important;
+            border: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+        }
+
+        .table-custom tbody tr {
+            background-color: #1f1f2f !important;
+            /* Super dark rows */
+            border-bottom: 1px solid #2c2c3e;
+            /* Slightly lighter divider for subtle contrast */
+            transition: 0.3s;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: #2c2c3e !important;
+            /* Darker hover (matches original card) */
+        }
+
+        .table-custom td {
+            background-color: #1f1f2f !important;
+            /* Super dark cells */
+            border: none;
+            vertical-align: middle;
+            color: #e0e0e0 !important;
+            font-size: 0.95rem;
+        }
+
+        .table-custom tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Override Bootstrap defaults aggressively for super dark */
+        .table {
+            --bs-table-bg: #1f1f2f !important;
+            --bs-table-color: #e0e0e0 !important;
+            --bs-table-border-color: #2c2c3e !important;
+            --bs-table-hover-bg: #2c2c3e !important;
+            --bs-table-striped-bg: #1f1f2f !important;
+            /* No stripes, keep uniform dark */
+        }
+
+        .table thead th {
+            --bs-table-bg: linear-gradient(90deg, #6a11cb, #2575fc) !important;
+            color: #e0e0e0 !important;
+        }
+
+        /* Responsive table wrapper - Seamless super dark */
+        .table-responsive {
+            border-radius: 0;
+            background: #1f1f2f !important;
+        }
+
+        /* Footer styling - Super dark, matching card */
+        .footer {
+            background: #1f1f2f !important;
+            /* Super dark card color */
+            color: #a0a0a0 !important;
+            /* Dimmed gray text */
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #2c2c3e;
+        }
+
+        .footer p {
+            color: #a0a0a0 !important;
+        }
+
+        /* Aggressive override to remove any white backgrounds globally */
+        *,
+        *::before,
+        *::after {
+            background-color: transparent !important;
+            color: inherit !important;
+            /* Inherit dimmed colors */
+        }
+
+        /* Force super dark on all potential light elements */
+        .container-fluid,
+        .row,
+        .col-12 {
+            background: #1a1a2e !important;
+            /* Super dark body match */
+        }
+
+        /* Icons and shadows for super dark immersion */
+        .bi {
+            color: #e0e0e0 !important;
+        }
+
+        .shadow {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7) !important;
+            /* Deeper shadows */
+        }
+
+        /* Dark theme adjustments for tables and card */
+        .card {
+            background-color: #2c2c3e;
+            border-color: #3c3c54;
+            color: #f1f1f1;
+        }
+
+        .card-header {
+            background-color: #3c3c54;
+            border-color: #4c4c6a;
+            color: #f1f1f1;
+        }
+
+        .table-dark {
+            --bs-table-bg: #2c2c3e;
+            --bs-table-striped-bg: #3c3c54;
+            --bs-table-striped-color: #f1f1f1;
+            --bs-table-active-bg: #4c4c6a;
+            --bs-table-active-color: #f1f1f1;
+            --bs-table-hover-bg: #3c3c54;
+            --bs-table-hover-color: #f1f1f1;
+            color: #f1f1f1;
+            border-color: #4c4c6a;
+        }
+
+        .table-dark th,
+        .table-dark td {
+            border-color: #4c4c6a;
+            color: #f1f1f1;
+        }
+
+        .table-dark thead th {
+            background-color: #3c3c54;
+            border-color: #4c4c6a;
+            color: #f1f1f1;
+        }
+
+        /* Form controls in dark theme */
+        .form-control {
+            background-color: #3c3c54;
+            border-color: #4c4c6a;
+            color: #f1f1f1;
+        }
+
+        .form-control:focus {
+            background-color: #3c3c54;
+            border-color: #6a11cb;
+            color: #f1f1f1;
+            box-shadow: 0 0 0 0.2rem rgba(106, 17, 203, 0.25);
+        }
+
+        .form-control option {
+            background-color: #2c2c3e;
+            color: #f1f1f1;
+        }
+
+        /* HR styling for dark theme */
+        hr {
+            border-color: #4c4c6a;
+        }
+
+        /* Button adjustments for dark theme */
+        .btn-primary {
+            background-color: #6a11cb;
+            border-color: #6a11cb;
+        }
+
+        .btn-primary:hover {
+            background-color: #2575fc;
+            border-color: #2575fc;
+        }
+
+        .btn-secondary {
+            background-color: #4c4c6a;
+            border-color: #4c4c6a;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5c5c7a;
+            border-color: #5c5c7a;
+        }
+
+        /* Dark theme for tables */
+        .table-dark {
+            --bs-table-bg: #2c2c3e;
+            --bs-table-color: #f1f1f1;
+            --bs-table-border-color: #444;
+        }
+
+        .table-dark th,
+        .table-dark td {
+            border-color: #444;
+            color: #f1f1f1;
+        }
+
+        .table-dark .table-striped>tbody>tr:nth-of-type(odd)>* {
+            --bs-table-accent-bg: #343a52;
+            color: #f1f1f1;
+        }
+
+        /* Product image styling */
+        .product-image {
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Detail text styling */
+        .detail-text {
+            white-space: pre-wrap;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        /* Card adjustments for dark theme */
+        .card {
+            background-color: #2c2c3e;
+            border: 1px solid #444;
+        }
+
+        .card-header {
+            background-color: #343a52;
+            border-bottom: 1px solid #444;
+            color: #f1f1f1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #2575fc, #6a11cb);
+        }
+
+        #image {
+            height: 50%;
+            margin-left: 30%;
+            margin-top: 5%;
+            margin-bottom: 0;
+            border-color: #0e0e24;
+            border-color: rgb(rgb(34, 48, 85), rgb(18, 24, 45), rgb(57, 30, 99));
+            box-sizing: var(--bs-table-accent-bg);
+
+
+        }
+        #sign{
+            margin-left: 35%;
+        }
+    </style>
+</head>
+
+<body>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+</body>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
 </html>
